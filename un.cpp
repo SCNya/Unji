@@ -63,10 +63,10 @@ string Un::Go (string & temp)
 	string cut;
 	do
 		{
-			if ((((temp [i]<' ') || (temp [i]>'/'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\'))
+			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
 				{
 					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<='/')) || (i==temp.size()) || (temp [(i+1)]=='\\'))
+					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
 						{
 							cut=Doll (ss.str(), temp);
 							ss.str("");
@@ -76,7 +76,7 @@ string Un::Go (string & temp)
 				}
 			i++;
 		}
-	while (i<=temp.size());
+	while (i<temp.size());
 	return (cut);
 }
 
@@ -88,10 +88,10 @@ string Un::Doll (string t, string & temp)
 	ss.clear();
 	do
 		{
-			if (((temp [i]<' ') || (temp [i]>'/')) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\'))
+			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
 				{
 					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<='/')) || (i==temp.size()) || (temp [(i+1)]=='\\'))
+					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
 						{
 							if (ss.str()==t)
 								{
@@ -104,7 +104,7 @@ string Un::Doll (string t, string & temp)
 				}
 			i++;
 		}
-	while (i<=temp.size());
+	while (i<temp.size());
 	return (cut);
 }
 
@@ -117,10 +117,10 @@ bool Un::Clear (string cut, string &temp, int &k)
 	ss.clear();
 	do
 		{
-			if (((temp [i]<' ') || (temp [i]>'/')) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\'))
+			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
 				{
 					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<='/')) || (i==temp.size()) || (temp [(i+1)]=='\\'))
+					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
 						{
 							if (ss.str()!=cut)
 								{
@@ -135,7 +135,7 @@ bool Un::Clear (string cut, string &temp, int &k)
 			else tss << temp [i];
 			i++;
 		}
-	while (i<=temp.size());
+	while (i<temp.size());
 	temp=tss.str();
 	if (h>1)
 		{
