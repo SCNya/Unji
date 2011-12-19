@@ -21,11 +21,6 @@ void Un::Open()
 	if (Good_in()!=0) cout << "Error: 1" << endl;
 }
 
-void Un::Word (string cut, int k)
-{
-	cout << "\nWord " << k << ": " << cut << endl;
-}
-
 int Un::Good_in()
 {
 	if (!in.good()) return (-1);
@@ -140,7 +135,7 @@ bool Un::Clear (string cut, string &temp, int &k)
 	if (h>1)
 		{
 			k++;
-			Word (cut, k);
+			cout << "\nWord " << k << ": " << cut << endl;
 		}
 	return (y);
 }

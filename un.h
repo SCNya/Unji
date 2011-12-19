@@ -21,7 +21,6 @@ public:
 	void Start();
 	void Create();
 	void Boot();
-	void Word (string, int);
 	bool Clear (string, string &, int &);
 
 private:
