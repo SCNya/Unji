@@ -13,20 +13,20 @@ class Un
 public:
 	Un (string);
 	~Un();
-	string Doll (string, string &);
-	string Go (string &);
-	int Good_in();
-	int Find();
+	void Find();
+	void Go();
+	void Fill();
 	void Open();
 	void Start();
 	void Create();
 	void Boot();
-	bool Clear (string, string &, int &);
+	void Clear();
 
 private:
-	ifstream in;
-	string str;
-	stringstream ss;
+	int *len, *size, *k;
+	ifstream *in;
+	string *str, *mass;
+	stringstream *ss;
 };
 
 #endif // UN_H

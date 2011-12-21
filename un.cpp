@@ -2,12 +2,20 @@
 
 Un::Un (string n)
 {
-	str=n;
+	str=new string;
+	ss=new stringstream;
+	len=new int (0);
+	k=new int (0);
+	size=new int (0);
+	*str=n;
 	Start();
 }
 
 Un::~Un()
-{}
+{
+	delete ss, len, k, size, str, in;
+	delete [] mass;
+}
 
 void Un::Start()
 {
@@ -17,125 +25,103 @@ void Un::Start()
 
 void Un::Open()
 {
-	in.open(str.c_str());
-	if (Good_in()!=0) cout << "Error: 1" << endl;
-}
-
-int Un::Good_in()
-{
-	if (!in.good()) return (-1);
-	else return (0);
+	in=new ifstream;
+	(*in).open((*str).c_str());
+	if (!(*in).good()) cout << "Error: 1" << endl;
 }
 
 void Un::Create()
-{}
+{
+	Go();
+	mass=new string [*len];
+	Fill();
+}
 
 void Un::Boot()
 {
-	ss << in.rdbuf();
-	str=ss.str();
-	ss.str("");
-	ss.clear();
-	in.close();
-}
-int Un::Find()
-{
-	int k (0);
-	string temp (str), cut;
-	bool y (true);
-	while (y==true)
-		{
-			cut=Go (temp);
-			y=Clear (cut, temp, k);
-		}
-	cout << endl;
-	return (k);
+	*ss << (*in).rdbuf();
+	*str=(*ss).str();
+	*size=(*str).size();
+	(*in).close();
 }
 
-string Un::Go (string & temp)
+void Un::Find()
+{
+	Create();
+	Clear();
+}
+
+void Un::Go()
 {
 	int i (0);
-	string cut;
+	(*ss).str("");
+	(*ss).clear();
 	do
 		{
-			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
+			if (((((*str) [i]<='&') || ((*str) [i]>'/'))) && ((((*str) [i]<' ') || ((*str) [i]>='&'))) && ((*str) [i]!='\n') && ((*str) [i]!=0) && ((*str) [i]!='\\') && ((*str) [i]!='~') && ((*str) [i]!='?') && ((*str) [i]!='<') && ((*str) [i]!='>'))
 				{
-					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
+					if ((((*str) [(i+1)]>=' ') && ((*str) [(i+1)]<'&')) || ((*str) [(i+1)]==0) || ((*str) [(i+1)]=='\\') || ((*str) [(i+1)]=='~') || ((*str) [(i+1)]=='?') || ((*str) [(i+1)]=='<') || ((*str) [(i+1)]=='>'))
 						{
-							cut=Doll (ss.str(), temp);
-							ss.str("");
-							ss.clear();
-							break;
+							(*len)++;
 						}
 				}
 			i++;
 		}
-	while (i<temp.size());
-	return (cut);
+	while (i<*size);
 }
 
-string Un::Doll (string t, string & temp)
+void Un::Fill()
 {
-	int i (0);
-	string cut;
-	ss.str("");
-	ss.clear();
+	int i (0), j (0);
+	(*ss).str("");
+	(*ss).clear();
 	do
 		{
-			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
+			if (((((*str) [i]<='&') || ((*str) [i]>'/'))) && ((((*str) [i]<' ') || ((*str) [i]>='&'))) && ((*str) [i]!='\n') && ((*str) [i]!=0) && ((*str) [i]!='\\') && ((*str) [i]!='~') && ((*str) [i]!='?') && ((*str) [i]!='<') && ((*str) [i]!='>'))
 				{
-					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
+					*ss << (*str) [i];
+					if ((((*str) [(i+1)]>=' ') && ((*str) [(i+1)]<'&')) || ((*str) [(i+1)]==0) || ((*str) [(i+1)]=='\\') || ((*str) [(i+1)]=='~') || ((*str) [(i+1)]=='?') || ((*str) [(i+1)]=='<') || ((*str) [(i+1)]=='>'))
 						{
-							if (ss.str()==t)
-								{
-									cut=ss.str();
-									break;
-								}
-							ss.str("");
-							ss.clear();
+							mass [j]=(*ss).str();
+							(*ss).str("");
+							(*ss).clear();
+							j++;
 						}
 				}
 			i++;
 		}
-	while (i<temp.size());
-	return (cut);
+	while (i<*size);
 }
 
-bool Un::Clear (string cut, string &temp, int &k)
+void Un::Clear()
 {
-	int i (0), h (0);
-	bool y (false);
-	stringstream tss;
-	ss.str("");
-	ss.clear();
+	int i (0), j, h (0);
+	string cut (mass [i]);
 	do
 		{
-			if ((((temp [i]<='&') || (temp [i]>'/'))) && (((temp [i]<' ') || (temp [i]>='&'))) && (temp [i]!='\n') && (temp [i]!=0) && (temp [i]!='\\') && (temp [i]!='~') && (temp [i]!='?') && (temp [i]!='<') && (temp [i]!='>'))
+			if (mass [i]!="")
 				{
-					ss << temp [i];
-					if (((temp [(i+1)]>=' ') && (temp [(i+1)]<'&')) || (temp [(i+1)]==0) || (temp [(i+1)]=='\\') || (temp [(i+1)]=='~') || (temp [(i+1)]=='?') || (temp [(i+1)]=='<') || (temp [(i+1)]=='>'))
+					cut=mass [i];
+					j=0;
+					h=0;
+					do
 						{
-							if (ss.str()!=cut)
+							if (mass [j]==cut)
 								{
-									y=true;
-									tss << ss.str();
+									h++;
+									mass [j]="";
 								}
-							else h++;
-							ss.str("");
-							ss.clear();
+							j++;
+						}
+					while (j<*len);
+					if (h>1)
+						{
+							(*k)++;
+							cout << "\nWord " << *k << ": " << cut << endl;
 						}
 				}
-			else tss << temp [i];
 			i++;
 		}
-	while (i<temp.size());
-	temp=tss.str();
-	if (h>1)
-		{
-			k++;
-			cout << "\nWord " << k << ": " << cut << endl;
-		}
-	return (y);
+	while (i<*len);
+	cout << "\nWords that occur more than once: " << *k << endl;
 }
