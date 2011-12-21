@@ -1,4 +1,4 @@
-//Unji by AEffect 21.12.2011 18:04 ver. alpha 0.2 (ASCII)
+//Unji by AEffect 21.12.2011 20:00 ver. alpha 0.2.1 (ASCII)
 #include <un.h>
 
 int main()
