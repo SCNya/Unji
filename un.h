@@ -14,15 +14,15 @@ public:
 	Un (string);
 	~Un();
 	void Find();
-	void Go();
-	void Fill();
-	void Open();
-	void Start();
-	void Create();
-	void Boot();
-	void Clear();
-
 private:
+    void Go();
+    void Fill();
+    void Open();
+    void Start();
+    void Create();
+    void Boot();
+    void Clear();
+    bool err;
 	int *len, *size, *k;
 	ifstream *in;
 	string *str, *mass;

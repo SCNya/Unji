@@ -1,39 +1,51 @@
 #include "un.h"
 
-Un::Un (string n)
+Un::Un (string n):
+    err(false)
 {
-	str=new string;
-	ss=new stringstream;
-	len=new int (0);
-	k=new int (0);
-	size=new int (0);
-	*str=n;
+    str = new string;
+    ss = new stringstream;
+    len = new int(0);
+    k = new int(0);
+    size = new int(0);
+    *str = n;
 	Start();
 }
 
 Un::~Un()
 {
-	delete ss, len, k, size, str, in;
-	delete [] mass;
+    delete ss;
+    delete len;
+    delete k;
+    delete size;
+    delete str;
+    delete in;
+    if(!err)
+    delete [] mass;
 }
 
 void Un::Start()
 {
 	Open();
+    if(!err)
 	Boot();
 }
 
 void Un::Open()
 {
-	in=new ifstream;
-	(*in).open((*str).c_str());
-	if (!(*in).good()) cout << "Error: 1" << endl;
+    in = new ifstream;
+    (*in).open((*str).c_str());
+    if (!(*in).good())
+    {
+        cout << "Error: 1" << endl;
+        err = true;
+    }
 }
 
 void Un::Create()
 {
 	Go();
-	mass=new string [*len];
+    mass = new string[*len];
 	Fill();
 }
 
@@ -47,8 +59,11 @@ void Un::Boot()
 
 void Un::Find()
 {
+    if(!err)
+    {
 	Create();
 	Clear();
+    }
 }
 
 void Un::Go()

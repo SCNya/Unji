@@ -3,7 +3,7 @@
 
 int main()
 {
-	Un*one=new Un("f.txt");
+    Un*one = new Un("bbe.txt");
 	one->Find();
 	delete one;
 	return (0);
